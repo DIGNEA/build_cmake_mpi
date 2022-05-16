@@ -1,0 +1,42 @@
+name: "Build turing"
+description: "Build the turing library" 
+
+inputs:  
+  variant: 
+    description: "Build variant to use in CMake. Default: Debug"
+    required: false
+
+runs:
+  using: "composite"
+  steps:
+      - name: Set the variante
+        shell: bash
+        run: |
+          if [ -z "${{inputs.variant}}" ]
+          then
+            echo "variant=Debug" >> $GITHUB_ENV
+          else
+            echo "variant=${{inputs.variant}}" >> $GITHUB_ENV
+          fi
+      - name: "Setups actions"
+        uses: actions/checkout@v2
+      - name: "Setups GCC 10"
+        uses: egor-tensin/setup-gcc@v1
+        with:
+          version: 10
+          platform: x64
+      - name: Install OpenMPI
+        shell: bash
+        run: sudo apt install -y openmpi-bin libopenmpi-dev
+      - name: Export C Compiler
+        shell: bash
+        run:  export CC=MPI_C
+      - name: Export CXX Compiler
+        shell: bash
+        run:  export CXX=MPI_CXX
+      - name: Configures project
+        shell: bash
+        run:  cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.variant}}
+      - name: Build Turing
+        shell: bash
+        run:  cmake --build ${{github.workspace}}/build --config ${{env.variant}} --target all -- -j 30

@@ -79,7 +79,7 @@ runs:
         run:  export CXX=MPI_CXX
       - name: Configures project
         shell: bash
-        run:  cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.variant}} 
+        run:  cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.variant}} -DINCLUDE_EXAMPLES=${{env.examples}} -DINCLUDE_TESTS=${{env.tests}} -DINCLUDE_COVERAGE=${{env.coverage}}
       - name: Build
         shell: bash
-        run:  cmake --build ${{github.workspace}}/build --config ${{env.variant}} -DINCLUDE_EXAMPLES=${{env.examples}} -DINCLUDE_TESTS=${{env.tests}} -DINCLUDE_COVERAGE=${{env.coverage}} --target all -- -j 14
+        run:  cmake --build ${{github.workspace}}/build --config ${{env.variant}}  --target all -- -j 14

@@ -1,5 +1,5 @@
-name: "Build turing"
-description: "Build the turing library" 
+name: "Build CMake & MPI projects"
+description: "Builds CMake and MPI based projects using C++20 features" 
 
 inputs:  
   variant: 
@@ -9,7 +9,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-      - name: Set the variante
+      - name: Set the variant
         shell: bash
         run: |
           if [ -z "${{inputs.variant}}" ]
@@ -37,6 +37,6 @@ runs:
       - name: Configures project
         shell: bash
         run:  cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.variant}}
-      - name: Build Turing
+      - name: Build
         shell: bash
-        run:  cmake --build ${{github.workspace}}/build --config ${{env.variant}} --target all -- -j 30
+        run:  cmake --build ${{github.workspace}}/build --config ${{env.variant}} --target all -- -j 14

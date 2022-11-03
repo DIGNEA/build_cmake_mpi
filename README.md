@@ -33,7 +33,7 @@ jobs:
       - uses: actions/checkout@v2
       
       - name: Build Turing
-        uses: TuringOpt/build_cmake_mpi@master
+        uses: dignea/build_cmake@master
         with:
           variant: env.BUILD_TYPE   
 ```

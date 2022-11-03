@@ -1,7 +1,6 @@
 
-# Github Action for CMake and MPI projects
+# Github Action for DIGNEA
 
-Github Action template for building the Turing Optimisation Framework.
 
 
 [![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/tterb/atomic-design-ui/blob/master/LICENSEs)
